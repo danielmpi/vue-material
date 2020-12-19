@@ -157,7 +157,7 @@
       },
       matchText (item) {
         const target = item.toLowerCase()
-        const search = this.searchTerm.toLowerCase()
+        const search = this.searchTerm.name?this.searchTerm:this.searchTerm.toLowerCase()
 
         if (this.mdFuzzySearch) {
           return fuzzy(search, target)
@@ -192,7 +192,8 @@
           this.showOptions()
         }
 
-        if (this.searchTerm.constructor.toString().match(/function (\w*)/)[1].toLowerCase() !== 'inputevent') {
+        if (this.searchTerm.name != null && this.searchTerm.constructor.toString().match(/function (\w*)/)[1].toLowerCase() !== 'inputevent') {
+          this.searchTerm = this.searchTerm.name?this.searchTerm.name:this.searchTerm;
           this.$emit('md-changed', this.searchTerm)
         }
       },
